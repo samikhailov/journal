@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+{% if request.get_full_path == '/journals/' %}Все издания{% endif %}
+{% if request.get_full_path == '/journals/coming/' %}Ближайшие выпуски{% endif %}
+{% if request.get_full_path == '/journals/archive/' %}Архив изданий{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    {% if request.get_full_path == '/journals/' %}
+    <h2>Все издания</h2>
+    <div class="row">
+        {% for journal in object_list %}
+                {% include "catalog/journal_list_content.html" %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if request.get_full_path == '/journals/coming/' %}
+    <h2>Ближайшие выпуски</h2>
+    <div class="row">
+        {% for journal in object_list %}
+                {% if journal.available_for_publication %}
+                    {% include "catalog/journal_list_content.html" %}
+                {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if request.get_full_path == '/journals/archive/' %}
+    <h2>Архив изданий</h2>
+    <div class="row">
+        {% for journal in object_list %}
+                {% if not journal.available_for_publication %}
+                    {% include "catalog/journal_list_content.html" %}
+                {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

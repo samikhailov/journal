@@ -1,0 +1,27 @@
+{% if journal.is_visible %}
+    <div class="col-lg-6">
+        <div class="card-group">
+            <div class="card">
+                <img class="card-img-left" src="{{ journal.cover.url }}"
+                     alt="Научный журнал {{ journal.name }}">
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'journal-detail' journal.pk %}">Научный
+                        журнал {{ journal.name }}</a></h5>
+                    {% if journal.is_published %}
+                        <p class="card-text">Статус: Журнал опубликован</p>
+                    {% elif journal.available_for_publication %}
+                        <p class="card-text">Статус: Прием статей</p>
+                    {% else %}
+                        <p class="card-text">Статус: Публикация журнала</p>
+                    {% endif %}
+                    <p class="card-text">Прием статей: <br/>до {{ journal.deadline_date }}
+                        (включительно)</p>
+                    <p class="card-text">Публикация статей: <br/>{{ journal.publication_date }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
