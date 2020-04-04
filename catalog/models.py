@@ -93,24 +93,3 @@ class Journal(models.Model):
     class Meta:
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
-
-
-class Page(models.Model):
-    private_title = models.CharField(max_length=100)
-    public_title = models.CharField(max_length=100)
-    content = models.TextField()
-    html_content = models.TextField(editable=False)
-
-    def __str__(self):
-        return '%s (%s)' % (self.private_title, self.public_title)
-
-    def save(self):
-        self.html_content = markdown(self.content)
-        super(Page, self).save()
-
-    def get_absolute_url(self):
-        return reverse('page-detail', args=[str(self.id)])
-
-    class Meta:
-        verbose_name = 'Страница'
-        verbose_name_plural = 'Страницы'

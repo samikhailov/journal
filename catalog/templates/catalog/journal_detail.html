@@ -3,81 +3,80 @@
 {% block title %}Научный журнал {{ journal.name }}{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <h2>Научный журнал {{ journal.name }}</h2>
-        <div class="row">
-            {% if journal.is_visible %}
-                <div class="col-lg-3">
-                    <div class="card">
-                        <img class="card-img-left" src="{{ journal.cover.url }}"
-                             alt="Научный журнал {{ journal.name }}">
-                    </div>
+<div class="container">
+    <h2>Научный журнал {{ journal.name }}</h2>
+    <div class="row">
+        {% if journal.is_visible %}
+        <div class="col-lg-3">
+            <div class="card">
+                <img class="card-img-left" src="{{ journal.cover.url }}" alt="Научный журнал {{ journal.name }}">
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    {% if journal.is_published %}
+                    <p class="card-text">Статус: Журнал опубликован</p>
+                    {% elif journal.available_for_publication %}
+                    <p class="card-text">Статус: Прием статей</p>
+                    {% else %}
+                    <p class="card-text">Статус: Публикация журнала</p>
+                    {% endif %}
+                    <p class="card-text">Прием статей:
+                        <br />до {{ journal.deadline_date }} (включительно)</p>
+                    <p class="card-text">Публикация статей:
+                        <br />{{ journal.publication_date }}</p>
+                    {% if journal.available_for_publication and not journal.is_published %}
+                    <p class="card-text"><a class="btn btn-primary"
+                            href="{% url 'article_create' journal.pk %}">Опубликовать
+                            статью</a></p>
+                    {% endif %}
                 </div>
-                <div class="col-lg-9">
-                    <div class="card">
-                        <div class="card-body">
-                            {% if journal.is_published %}
-                                <p class="card-text">Статус: Журнал опубликован</p>
-                            {% elif journal.available_for_publication %}
-                                <p class="card-text">Статус: Прием статей</p>
-                            {% else %}
-                                <p class="card-text">Статус: Публикация журнала</p>
-                            {% endif %}
-                            <p class="card-text">Прием статей:
-                                <br/>до {{ journal.deadline_date }} (включительно)</p>
-                            <p class="card-text">Публикация статей:
-                                <br/>{{ journal.publication_date }}</p>
-                            {% if journal.available_for_publication and not journal.is_published %}
-                                <p class="card-text"><a class="btn btn-primary"
-                                                        href="{% url 'article_create' journal.pk %}">Опубликовать
-                                    статью</a></p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container">
-                <br/>
-                    <ul class="nav nav-tabs nav-fill" id="tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link {% if journal.available_for_publication %}active{% endif %}"
-                               id="conditions-tab" data-toggle="tab" href="#conditions"
-                               role="tab" aria-controls="conditions" aria-selected="false">Условия публикации</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {% if not journal.available_for_publication %}active{% endif %}"
-                               id="announcement-tab" data-toggle="tab"
-                               href="#announcement" role="tab" aria-controls="announcement"
-                               aria-selected="true">Анонсы
-                                статей</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="tabContent">
-                        <div class="tab-pane fade {% if journal.available_for_publication %}show active{% endif %}"
-                             id="conditions" role="tabpanel" aria-labelledby="conditions-tab">
-<br/>
-<p><strong>О ЖУРНАЛЕ</strong></p>
-<p>Уважаемые коллеги!</p>
-<p>Приглашаем магистрантов и студентов учреждений высшего и среднего профессионального образования опубликовать статьи в научном журнале «Студенческий».</p>
-<p>Журналу присваиваются ISSN, УДК и ББК. Журнал выходит 4 раза в месяц. Метаданные статей, опубликованных в журнале, размещаются на платформе eLIBRARY.RU.</p>
-<p>Все статьи проходят проверку на плагиат (используется сервис content-watch.ru). Оригинальность текста должна составлять не менее 70% от объема статьи.</p>
-                        </div>
-                        <div class="tab-pane fade {% if not journal.available_for_publication %}show active{% endif %}"
-                             id="announcement" role="tabpanel" aria-labelledby="announcement-tab">
-                            <ul class="list-group list-group-flush">
-                                {% for article in journal.article_set.all %}
-
-                                    <li class="list-group-item"><a
-                                            href="{% url 'article-detail' article.pk %}">{{ article.author }}
-                                        - {{ article.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+            </div>
         </div>
 
+        <div class="container">
+            <br />
+            <ul class="nav nav-tabs nav-fill" id="tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link {% if journal.available_for_publication %}active{% endif %}" id="conditions-tab"
+                        data-toggle="tab" href="#conditions" role="tab" aria-controls="conditions"
+                        aria-selected="false">Условия публикации</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if not journal.available_for_publication %}active{% endif %}"
+                        id="announcement-tab" data-toggle="tab" href="#announcement" role="tab"
+                        aria-controls="announcement" aria-selected="true">Анонсы
+                        статей</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="tabContent">
+                <div class="tab-pane fade {% if journal.available_for_publication %}show active{% endif %}"
+                    id="conditions" role="tabpanel" aria-labelledby="conditions-tab">
+                    <br />
+                    <p><strong>О ЖУРНАЛЕ</strong></p>
+                    <p>Уважаемые коллеги!</p>
+                    <p>Приглашаем магистрантов и студентов учреждений высшего и среднего профессионального образования
+                        опубликовать статьи в научном журнале «Студенческий».</p>
+                    <p>Журналу присваиваются ISSN, УДК и ББК. Журнал выходит 4 раза в месяц. Метаданные статей,
+                        опубликованных в журнале, размещаются на платформе eLIBRARY.RU.</p>
+                    <p>Все статьи проходят проверку на плагиат (используется сервис content-watch.ru). Оригинальность
+                        текста должна составлять не менее 70% от объема статьи.</p>
+                </div>
+                <div class="tab-pane fade {% if not journal.available_for_publication %}show active{% endif %}"
+                    id="announcement" role="tabpanel" aria-labelledby="announcement-tab">
+                    <ul class="list-group list-group-flush">
+                        {% for article in journal.article_set.all %}
+
+                        <li class="list-group-item"><a href="{% url 'article-detail' article.pk %}">{{ article.author }}
+                                - {{ article.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -4,30 +4,32 @@
 
 {% block content %}
 
-    <div class="container">
-        <h2>{{ article.name }}</h2>
-        <div class="row">
-
-            <div class="col-lg-3">
-                <div class="card">
-                    <img class="card-img-left" src="{{ article.journal.cover.url }}"
-                         alt="Научный журнал {{ journal.name }}">
+<div class="container">
+    <h2>{{ article.name }}</h2>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <img class="card-img-left" src="{{ article.journal.cover.url }}"
+                    alt="Научный журнал {{ journal.name }}">
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <p>Статья опубликована в рамках: <a href="{% url 'journal-detail' article.journal.pk %}">Научного
+                            журнала {{ article.journal }}</a></p>
+                    <p>Рубрика журнала: Рубрика</p>
+                    <p>Скачать книгу: <a href="#">скачать журнал</a></p>
+                    <p>Библиографическое опсание:<br />
+                        {{ article.name }}. {{ article.name }} // {{ article.journal }}. URL:
+                        {{ request.scheme }}://{{ request.get_host }}{% url 'article-detail' article.pk %} (дата
+                        обращения: {% now "d.m.Y" %})</p>
                 </div>
             </div>
-            <div class="col-lg-9">
-                <div class="card">
-                    <div class="card-body">
-                        <p>Статья опубликована в рамках: <a href="{% url 'journal-detail' article.journal.pk %}">Научного журнала {{ article.journal }}</a></p>
-                        <p>Рубрика журнала: Рубрика</p>
-                        <p>Скачать книгу: <a href="#">скачать журнал</a></p>
-                        <p>Библиографическое опсание:<br/>
-                        {{ article.name }}. {{ article.name }} // {{ article.journal }}. URL: {{ request.scheme }}://{{ request.get_host }}{% url 'article-detail' article.pk %} (дата обращения: {% now "d.m.Y" %})</p>
-                    </div>
-                </div>
-            </div>
+        </div>
 
-            <div class="col-lg-12">
-            <br/>
-                {{ article.html_article_text|safe }}
-            </div>
-{% endblock %}
+        <div class="col-lg-12">
+            <br />
+            {{ article.html_article_text|safe }}
+        </div>
+        {% endblock %}

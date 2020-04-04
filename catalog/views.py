@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 from .forms import ArticleCreateForm
-from .models import Article, Journal, Page
+from .models import Article, Journal
 
 
 class JournalListView(ListView):
@@ -21,10 +21,6 @@ class ArticleListView(ListView):
 
 class ArticleDetailView(DetailView):
     model = Article
-
-
-class PageDetailView(DetailView):
-    model = Page
 
 
 class ArticleCreate(CreateView):

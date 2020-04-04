@@ -13,7 +13,7 @@
     <h2>Все издания</h2>
     <div class="row">
         {% for journal in object_list %}
-                {% include "catalog/journal_list_content.html" %}
+        {% include "catalog/journal_list_content.html" %}
         {% endfor %}
     </div>
     {% endif %}
@@ -22,9 +22,9 @@
     <h2>Ближайшие выпуски</h2>
     <div class="row">
         {% for journal in object_list %}
-                {% if journal.available_for_publication %}
-                    {% include "catalog/journal_list_content.html" %}
-                {% endif %}
+        {% if journal.available_for_publication %}
+        {% include "catalog/journal_list_content.html" %}
+        {% endif %}
         {% endfor %}
     </div>
     {% endif %}
@@ -33,9 +33,9 @@
     <h2>Архив изданий</h2>
     <div class="row">
         {% for journal in object_list %}
-                {% if not journal.available_for_publication %}
-                    {% include "catalog/journal_list_content.html" %}
-                {% endif %}
+        {% if not journal.available_for_publication %}
+        {% include "catalog/journal_list_content.html" %}
+        {% endif %}
         {% endfor %}
     </div>
     {% endif %}

@@ -13,7 +13,6 @@ urlpatterns = [
     path("journals/<int:pk>/", views.JournalDetailView.as_view(), name="journal-detail"),
     path("journals/<int:pk>/article/create/", views.ArticleCreate.as_view(), name="article_create"),
     path("journals/article/<int:pk>/", views.ArticleDetailView.as_view(), name="article-detail"),
-    path("page/<int:pk>/", views.PageDetailView.as_view(), name="page-detail"),
     path("for-authors/", views.blank, name="for-authors"),
 ]
 

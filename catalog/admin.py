@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Article, Journal, Rubric, Page
+from .models import Article, Journal, Rubric
 
 
 admin.site.register(Rubric)
-admin.site.register(Page)
 
 
 @admin.register(Article)
